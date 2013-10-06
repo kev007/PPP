@@ -190,10 +190,10 @@ LOAD c:/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
                 0x00000078                __vector_18
                 0x00000078                __vector_20
  .text          0x0000007c       0x96 ppp.o
-                0x0000008a                display
-                0x0000007c                init
+                0x0000007c                display
+                0x000000ee                init
                 0x000000fc                main
-                0x0000008c                lauflicht
+                0x0000007e                lauflicht
  .text          0x00000112        0x0 c:/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
  .text          0x00000112        0x0 c:/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
                 0x00000112                . = ALIGN (0x2)
@@ -332,18 +332,18 @@ LOAD c:/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x164 ppp.o
 
-.debug_line     0x00000000      0x23f
+.debug_line     0x00000000      0x271
  *(.debug_line)
- .debug_line    0x00000000      0x23f ppp.o
+ .debug_line    0x00000000      0x271 ppp.o
 
 .debug_frame    0x00000000       0x50
  *(.debug_frame)
  .debug_frame   0x00000000       0x50 ppp.o
 
-.debug_str      0x00000000       0xf2
+.debug_str      0x00000000       0xeb
  *(.debug_str)
- .debug_str     0x00000000       0xf2 ppp.o
-                                0x12e (size before relaxing)
+ .debug_str     0x00000000       0xeb ppp.o
+                                0x127 (size before relaxing)
 
 .debug_loc      0x00000000       0xe0
  *(.debug_loc)

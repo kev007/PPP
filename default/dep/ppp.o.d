@@ -10,7 +10,8 @@ ppp.o: ../src/ppp.c c:/winavr/lib/gcc/../../avr/include/stdint.h \
   c:/winavr/lib/gcc/../../avr/include/avr/common.h \
   c:/winavr/lib/gcc/../../avr/include/avr/version.h \
   c:/winavr/lib/gcc/../../avr/include/avr/fuse.h \
-  c:/winavr/lib/gcc/../../avr/include/avr/lock.h
+  c:/winavr/lib/gcc/../../avr/include/avr/lock.h ../src/../output.h \
+  ../src/../modes.h
 
 c:/winavr/lib/gcc/../../avr/include/stdint.h:
 
@@ -37,3 +38,7 @@ c:/winavr/lib/gcc/../../avr/include/avr/version.h:
 c:/winavr/lib/gcc/../../avr/include/avr/fuse.h:
 
 c:/winavr/lib/gcc/../../avr/include/avr/lock.h:
+
+../src/../output.h:
+
+../src/../modes.h:

@@ -15,15 +15,15 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
   5 .debug_abbrev 00000164  00000000  00000000  000004aa  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_line   0000023f  00000000  00000000  0000060e  2**0
+  6 .debug_line   00000271  00000000  00000000  0000060e  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_frame  00000050  00000000  00000000  00000850  2**2
+  7 .debug_frame  00000050  00000000  00000000  00000880  2**2
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_str    000000f2  00000000  00000000  000008a0  2**0
+  8 .debug_str    000000eb  00000000  00000000  000008d0  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_loc    000000e0  00000000  00000000  00000992  2**0
+  9 .debug_loc    000000e0  00000000  00000000  000009bb  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_ranges 00000048  00000000  00000000  00000a72  2**0
+ 10 .debug_ranges 00000048  00000000  00000000  00000a9b  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -78,189 +78,192 @@ Disassembly of section .text:
 00000078 <__bad_interrupt>:
   78:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
 
-0000007c <init>:
-
-volatile int16_t overflow = 0;
-
-void init (void)
-{
-	DDRB	= 	0b00000111;
-  7c:	87 e0       	ldi	r24, 0x07	; 7
-  7e:	87 bb       	out	0x17, r24	; 23
-	DDRA	= 	0xFF;
-  80:	8f ef       	ldi	r24, 0xFF	; 255
-  82:	8a bb       	out	0x1a, r24	; 26
-	DDRD	= 	0x00;
-  84:	11 ba       	out	0x11, r1	; 17
-	PORTB	= 	0xFF;
-  86:	88 bb       	out	0x18, r24	; 24
-	TIMSK 	|= 	(1<<TOIE1);
-	TCNT1	=	0;
-
-	sei();	
-*/				
-}
-  88:	08 95       	ret
-
-0000008a <display>:
+0000007c <display>:
 
 	}	
 	if ((B % buffer_size) == 0){
 
 	}	
 }
-  8a:	08 95       	ret
+  7c:	08 95       	ret
 
-0000008c <lauflicht>:
+0000007e <lauflicht>:
+#define str 	0
+#define data 	1
+#define clk 	2
 
 void lauflicht (void)
 {
-  8c:	20 e0       	ldi	r18, 0x00	; 0
-  8e:	30 e0       	ldi	r19, 0x00	; 0
+  7e:	20 e0       	ldi	r18, 0x00	; 0
+  80:	30 e0       	ldi	r19, 0x00	; 0
 	int delay = 100;
 
 	while(1)
 	{		
 		PORTA ^= 0xFF;
 		PORTB = (1 << str);
-  90:	a1 e0       	ldi	r26, 0x01	; 1
+  82:	a1 e0       	ldi	r26, 0x01	; 1
     milliseconds can be achieved.
  */
 void
 _delay_loop_2(uint16_t __count)
 {
 	__asm__ volatile (
-  92:	40 e9       	ldi	r20, 0x90	; 144
-  94:	51 e0       	ldi	r21, 0x01	; 1
+  84:	40 e9       	ldi	r20, 0x90	; 144
+  86:	51 e0       	ldi	r21, 0x01	; 1
 		_delay_ms(delay);	
 		
 		if ((i % buffer) == 0){
 			PORTB = (1 << data);
-  96:	72 e0       	ldi	r23, 0x02	; 2
+  88:	72 e0       	ldi	r23, 0x02	; 2
 			PORTB = (0 << data);
 		}
 		i++;
 		
 		_delay_ms(delay);	
 		PORTB ^= (1 << clk);
-  98:	64 e0       	ldi	r22, 0x04	; 4
+  8a:	64 e0       	ldi	r22, 0x04	; 4
 	int buffer = 4;
 	int delay = 100;
 
 	while(1)
 	{		
 		PORTA ^= 0xFF;
-  9a:	8b b3       	in	r24, 0x1b	; 27
-  9c:	80 95       	com	r24
-  9e:	8b bb       	out	0x1b, r24	; 27
+  8c:	8b b3       	in	r24, 0x1b	; 27
+  8e:	80 95       	com	r24
+  90:	8b bb       	out	0x1b, r24	; 27
 		PORTB = (1 << str);
-  a0:	a8 bb       	out	0x18, r26	; 24
-  a2:	88 ee       	ldi	r24, 0xE8	; 232
-  a4:	93 e0       	ldi	r25, 0x03	; 3
-  a6:	fa 01       	movw	r30, r20
-  a8:	31 97       	sbiw	r30, 0x01	; 1
-  aa:	f1 f7       	brne	.-4      	; 0xa8 <lauflicht+0x1c>
+  92:	a8 bb       	out	0x18, r26	; 24
+  94:	88 ee       	ldi	r24, 0xE8	; 232
+  96:	93 e0       	ldi	r25, 0x03	; 3
+  98:	fa 01       	movw	r30, r20
+  9a:	31 97       	sbiw	r30, 0x01	; 1
+  9c:	f1 f7       	brne	.-4      	; 0x9a <lauflicht+0x1c>
 		__ticks = (uint16_t) (__ms * 10.0);
 		while(__ticks)
 		{
 			// wait 1/10 ms
 			_delay_loop_2(((F_CPU) / 4e3) / 10);
 			__ticks --;
-  ac:	01 97       	sbiw	r24, 0x01	; 1
+  9e:	01 97       	sbiw	r24, 0x01	; 1
 		__ticks = 1;
 	else if (__tmp > 65535)
 	{
 		//	__ticks = requested delay in 1/10 ms
 		__ticks = (uint16_t) (__ms * 10.0);
 		while(__ticks)
-  ae:	d9 f7       	brne	.-10     	; 0xa6 <lauflicht+0x1a>
+  a0:	d9 f7       	brne	.-10     	; 0x98 <lauflicht+0x1a>
 		_delay_ms(delay);	
 		
 		if ((i % buffer) == 0){
-  b0:	c9 01       	movw	r24, r18
-  b2:	83 70       	andi	r24, 0x03	; 3
-  b4:	90 70       	andi	r25, 0x00	; 0
-  b6:	89 2b       	or	r24, r25
-  b8:	11 f4       	brne	.+4      	; 0xbe <lauflicht+0x32>
+  a2:	c9 01       	movw	r24, r18
+  a4:	83 70       	andi	r24, 0x03	; 3
+  a6:	90 70       	andi	r25, 0x00	; 0
+  a8:	89 2b       	or	r24, r25
+  aa:	11 f4       	brne	.+4      	; 0xb0 <lauflicht+0x32>
 			PORTB = (1 << data);
-  ba:	78 bb       	out	0x18, r23	; 24
-  bc:	01 c0       	rjmp	.+2      	; 0xc0 <lauflicht+0x34>
+  ac:	78 bb       	out	0x18, r23	; 24
+  ae:	01 c0       	rjmp	.+2      	; 0xb2 <lauflicht+0x34>
 		} else {
 			PORTB = (0 << data);
-  be:	18 ba       	out	0x18, r1	; 24
-  c0:	88 ee       	ldi	r24, 0xE8	; 232
-  c2:	93 e0       	ldi	r25, 0x03	; 3
-  c4:	fa 01       	movw	r30, r20
-  c6:	31 97       	sbiw	r30, 0x01	; 1
-  c8:	f1 f7       	brne	.-4      	; 0xc6 <lauflicht+0x3a>
+  b0:	18 ba       	out	0x18, r1	; 24
+  b2:	88 ee       	ldi	r24, 0xE8	; 232
+  b4:	93 e0       	ldi	r25, 0x03	; 3
+  b6:	fa 01       	movw	r30, r20
+  b8:	31 97       	sbiw	r30, 0x01	; 1
+  ba:	f1 f7       	brne	.-4      	; 0xb8 <lauflicht+0x3a>
 		{
 			// wait 1/10 ms
 			_delay_loop_2(((F_CPU) / 4e3) / 10);
 			__ticks --;
-  ca:	01 97       	sbiw	r24, 0x01	; 1
+  bc:	01 97       	sbiw	r24, 0x01	; 1
 		__ticks = 1;
 	else if (__tmp > 65535)
 	{
 		//	__ticks = requested delay in 1/10 ms
 		__ticks = (uint16_t) (__ms * 10.0);
 		while(__ticks)
-  cc:	d9 f7       	brne	.-10     	; 0xc4 <lauflicht+0x38>
+  be:	d9 f7       	brne	.-10     	; 0xb6 <lauflicht+0x38>
 		}
 		i++;
 		
 		_delay_ms(delay);	
 		PORTB ^= (1 << clk);
-  ce:	88 b3       	in	r24, 0x18	; 24
-  d0:	86 27       	eor	r24, r22
-  d2:	88 bb       	out	0x18, r24	; 24
-  d4:	88 ee       	ldi	r24, 0xE8	; 232
-  d6:	93 e0       	ldi	r25, 0x03	; 3
-  d8:	fa 01       	movw	r30, r20
-  da:	31 97       	sbiw	r30, 0x01	; 1
-  dc:	f1 f7       	brne	.-4      	; 0xda <lauflicht+0x4e>
+  c0:	88 b3       	in	r24, 0x18	; 24
+  c2:	86 27       	eor	r24, r22
+  c4:	88 bb       	out	0x18, r24	; 24
+  c6:	88 ee       	ldi	r24, 0xE8	; 232
+  c8:	93 e0       	ldi	r25, 0x03	; 3
+  ca:	fa 01       	movw	r30, r20
+  cc:	31 97       	sbiw	r30, 0x01	; 1
+  ce:	f1 f7       	brne	.-4      	; 0xcc <lauflicht+0x4e>
 		{
 			// wait 1/10 ms
 			_delay_loop_2(((F_CPU) / 4e3) / 10);
 			__ticks --;
-  de:	01 97       	sbiw	r24, 0x01	; 1
+  d0:	01 97       	sbiw	r24, 0x01	; 1
 		__ticks = 1;
 	else if (__tmp > 65535)
 	{
 		//	__ticks = requested delay in 1/10 ms
 		__ticks = (uint16_t) (__ms * 10.0);
 		while(__ticks)
-  e0:	d9 f7       	brne	.-10     	; 0xd8 <lauflicht+0x4c>
+  d2:	d9 f7       	brne	.-10     	; 0xca <lauflicht+0x4c>
 		_delay_ms(delay);
 		PORTB ^= (1 << clk);
-  e2:	88 b3       	in	r24, 0x18	; 24
-  e4:	86 27       	eor	r24, r22
-  e6:	88 bb       	out	0x18, r24	; 24
-  e8:	88 ee       	ldi	r24, 0xE8	; 232
-  ea:	93 e0       	ldi	r25, 0x03	; 3
-  ec:	fa 01       	movw	r30, r20
-  ee:	31 97       	sbiw	r30, 0x01	; 1
-  f0:	f1 f7       	brne	.-4      	; 0xee <lauflicht+0x62>
+  d4:	88 b3       	in	r24, 0x18	; 24
+  d6:	86 27       	eor	r24, r22
+  d8:	88 bb       	out	0x18, r24	; 24
+  da:	88 ee       	ldi	r24, 0xE8	; 232
+  dc:	93 e0       	ldi	r25, 0x03	; 3
+  de:	fa 01       	movw	r30, r20
+  e0:	31 97       	sbiw	r30, 0x01	; 1
+  e2:	f1 f7       	brne	.-4      	; 0xe0 <lauflicht+0x62>
 		{
 			// wait 1/10 ms
 			_delay_loop_2(((F_CPU) / 4e3) / 10);
 			__ticks --;
-  f2:	01 97       	sbiw	r24, 0x01	; 1
+  e4:	01 97       	sbiw	r24, 0x01	; 1
 		__ticks = 1;
 	else if (__tmp > 65535)
 	{
 		//	__ticks = requested delay in 1/10 ms
 		__ticks = (uint16_t) (__ms * 10.0);
 		while(__ticks)
-  f4:	d9 f7       	brne	.-10     	; 0xec <lauflicht+0x60>
+  e6:	d9 f7       	brne	.-10     	; 0xde <lauflicht+0x60>
 		if ((i % buffer) == 0){
 			PORTB = (1 << data);
 		} else {
 			PORTB = (0 << data);
 		}
 		i++;
-  f6:	2f 5f       	subi	r18, 0xFF	; 255
-  f8:	3f 4f       	sbci	r19, 0xFF	; 255
-  fa:	cf cf       	rjmp	.-98     	; 0x9a <lauflicht+0xe>
+  e8:	2f 5f       	subi	r18, 0xFF	; 255
+  ea:	3f 4f       	sbci	r19, 0xFF	; 255
+  ec:	cf cf       	rjmp	.-98     	; 0x8c <lauflicht+0xe>
+
+000000ee <init>:
+
+volatile int16_t overflow = 0;
+
+void init (void)
+{
+	DDRB	= 	0b00000111;
+  ee:	87 e0       	ldi	r24, 0x07	; 7
+  f0:	87 bb       	out	0x17, r24	; 23
+	DDRA	= 	0xFF;
+  f2:	8f ef       	ldi	r24, 0xFF	; 255
+  f4:	8a bb       	out	0x1a, r24	; 26
+	DDRD	= 	0x00;
+  f6:	11 ba       	out	0x11, r1	; 17
+	PORTB	= 	0xFF;
+  f8:	88 bb       	out	0x18, r24	; 24
+	TIMSK 	|= 	(1<<TOIE1);
+	TCNT1	=	0;
+
+	sei();	
+*/				
+}
+  fa:	08 95       	ret
 
 000000fc <main>:
 
@@ -284,7 +287,7 @@ int main()
 	init();
 
 	lauflicht();
- 108:	0e 94 46 00 	call	0x8c	; 0x8c <lauflicht>
+ 108:	0e 94 3f 00 	call	0x7e	; 0x7e <lauflicht>
 }
  10c:	80 e0       	ldi	r24, 0x00	; 0
  10e:	90 e0       	ldi	r25, 0x00	; 0
