@@ -1,6 +1,6 @@
 #define str 	0
 #define data 	1
-#define clk 	2
+#define clk 	3
 
 void lauflicht (void)
 {
@@ -10,7 +10,7 @@ void lauflicht (void)
 
 	while(1)
 	{		
-		PORTA ^= 0xFF;
+		PORTA = 0x00;
 		PORTB = (1 << str);
 		_delay_ms(delay);	
 		
@@ -27,4 +27,9 @@ void lauflicht (void)
 		PORTB ^= (1 << clk);
 		_delay_ms(delay);
 	}
+}
+
+void tasterTest (void)
+{
+	PORTA = 0x00;
 }

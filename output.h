@@ -1,6 +1,6 @@
 #define str 	0
 #define data 	1
-#define clk 	2
+#define clk 	3
 
 
 
