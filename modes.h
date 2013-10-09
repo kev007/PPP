@@ -9,8 +9,7 @@ void lauflicht (void)
 	int delay = 100;
 
 	while(1)
-	{		
-		PORTA = 0x00;
+	{
 		PORTB = (1 << str);
 		_delay_ms(delay);	
 		
